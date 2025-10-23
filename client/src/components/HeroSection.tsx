@@ -112,33 +112,19 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
             className="backdrop-blur-md bg-black/40 rounded-xl p-6 md:p-8 border border-white/10"
             data-testid="text-hero-overlay"
           >
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Consulte a programação do Cine Estação
             </h1>
-            <p className="text-lg md:text-xl text-white/90 mb-6">da sua cidade</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full font-bold shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground px-8"
-                data-testid="button-buy-tickets-hero"
-              >
-                <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
-                  Comprar Ingressos
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full font-bold shadow-lg backdrop-blur-md bg-white/10 border-white/30 text-white hover:bg-white/20 px-8"
-                data-testid="button-collectibles-hero"
-              >
-                <a href="https://biolivre.com.br/lojasmiriam" target="_blank" rel="noopener noreferrer">
-                  Itens Colecionáveis
-                </a>
-              </Button>
-            </div>
+            <Button
+              asChild
+              size="lg"
+              className="rounded-full font-bold shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+              data-testid="button-buy-tickets-hero"
+            >
+              <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
+                Comprar Ingressos
+              </a>
+            </Button>
           </div>
         </motion.div>
       </div>

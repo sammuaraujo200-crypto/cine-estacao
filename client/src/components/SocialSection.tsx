@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Facebook, Youtube, Instagram } from "lucide-react";
+import { Facebook, Youtube, Instagram, ShoppingBag } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 
 export default function SocialSection() {
   const socialLinks = [
@@ -18,6 +19,17 @@ export default function SocialSection() {
       icon: Instagram,
       href: "https://www.instagram.com/cine.estacao/",
     },
+    {
+      name: "Itens Colecionáveis",
+      icon: ShoppingBag,
+      href: "https://biolivre.com.br/lojasmiriam",
+    },
+    {
+      name: "WhatsApp",
+      icon: SiWhatsapp,
+      href: "#",
+      isReactIcon: true,
+    },
   ];
 
   return (
@@ -30,10 +42,10 @@ export default function SocialSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-card-foreground mb-12">
-            Siga nossas redes sociais:
+            Explore mais do Cine Estação
           </h2>
 
-          <div className="flex items-center justify-center gap-8 md:gap-16">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12">
             {socialLinks.map((social, index) => {
               const Icon = social.icon;
               return (
@@ -49,13 +61,13 @@ export default function SocialSection() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="group"
-                  data-testid={`link-social-${social.name.toLowerCase()}`}
+                  data-testid={`link-social-${social.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <div className="flex flex-col items-center gap-3">
                     <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-foreground/10 flex items-center justify-center group-hover:bg-primary transition-colors">
                       <Icon className="w-8 h-8 md:w-10 md:h-10 text-foreground group-hover:text-primary-foreground transition-colors" />
                     </div>
-                    <span className="text-sm md:text-base font-medium text-card-foreground">
+                    <span className="text-sm md:text-base font-medium text-card-foreground text-center max-w-[100px]">
                       {social.name}
                     </span>
                   </div>
