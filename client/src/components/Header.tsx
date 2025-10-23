@@ -50,9 +50,9 @@ export default function Header({ theme = "default" }: HeaderProps) {
 
             <div className="flex-shrink-0 flex items-center justify-center">
               <img
-                src="/api/placeholder/200/80"
+                src="/@assets/cine estação_1761215287537.png"
                 alt="Cine Estação"
-                className="h-12 w-auto"
+                className="h-14 w-auto"
                 data-testid="img-logo"
               />
             </div>

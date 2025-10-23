@@ -28,6 +28,24 @@ const mockVideos: VideoCard[] = [
     thumbnail: "/api/placeholder/400/225",
     description: "Assista ao trailer completo de #zootopia2 Somos o melhor canal...",
   },
+  {
+    id: "4",
+    title: "Trailer Oficial (Completo) - Animais Perigosos",
+    thumbnail: "/api/placeholder/400/225",
+    description: "Assista ao trailer completo de #animaisperigosos",
+  },
+  {
+    id: "5",
+    title: "Trailer Oficial (Completo) - Invocação do mal 4",
+    thumbnail: "/api/placeholder/400/225",
+    description: "Assista ao trailer completo de #invocaçãodomal",
+  },
+  {
+    id: "6",
+    title: "Trailer Oficial (Completo) - Tron: Ares",
+    thumbnail: "/api/placeholder/400/225",
+    description: "Assista ao trailer completo de Tron: Ares",
+  },
 ];
 
 export default function YouTubeSection() {

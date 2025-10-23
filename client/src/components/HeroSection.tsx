@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 interface HeroSectionProps {
   theme?: "default" | "halloween" | "christmas" | "valentines";
@@ -71,34 +72,57 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
+    <section className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="/api/placeholder/1920/1080"
+          src="/@assets/screenshot-1761215348215.png"
           alt="Cinema Hero"
           className="w-full h-full object-cover"
           data-testid="img-hero-background"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
       </div>
 
       {getOverlayDecoration()}
 
-      <div className="relative h-full flex items-center justify-center px-4">
+      <div className="relative h-full flex flex-col items-center justify-center px-4 gap-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="text-center"
+        >
+          <img
+            src="/@assets/cine estação_1761215287537.png"
+            alt="Cine Estação"
+            className="h-24 md:h-32 w-auto mx-auto mb-4"
+          />
+          <p className="text-lg md:text-xl text-white/90 font-medium">
+            Cine Estação | A felicidade só é verdadeira quando compartilhada.
+          </p>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center max-w-3xl"
         >
           <div
-            className="backdrop-blur-sm bg-black/50 rounded-xl p-6 md:p-8"
+            className="backdrop-blur-md bg-black/40 rounded-xl p-6 md:p-8 border border-white/10"
             data-testid="text-hero-overlay"
           >
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Consulte a programação do Cine Estação
             </h1>
-            <p className="text-lg md:text-xl text-white/90">da sua cidade</p>
+            <p className="text-lg md:text-xl text-white/90 mb-6">da sua cidade</p>
+            <Button
+              size="lg"
+              className="rounded-full font-bold shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+              data-testid="button-view-schedule"
+            >
+              Ver Programação
+            </Button>
           </div>
         </motion.div>
       </div>

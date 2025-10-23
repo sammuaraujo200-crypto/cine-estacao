@@ -4,9 +4,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center justify-center gap-4">
           <img
-            src="/api/placeholder/180/70"
+            src="/@assets/cine estação_1761215287537.png"
             alt="Cine Estação"
-            className="h-10 w-auto"
+            className="h-12 w-auto"
             data-testid="img-footer-logo"
           />
           <p className="text-center text-foreground/90 text-sm md:text-base" data-testid="text-footer-tagline">
