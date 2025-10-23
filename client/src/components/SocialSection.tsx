@@ -45,7 +45,7 @@ export default function SocialSection() {
             Explore mais do Cine Estação
           </h2>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12">
+          <div className="flex flex-wrap items-start justify-center gap-6 md:gap-12">
             {socialLinks.map((social, index) => {
               const Icon = social.icon;
               return (
@@ -63,11 +63,11 @@ export default function SocialSection() {
                   className="group"
                   data-testid={`link-social-${social.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <div className="flex flex-col items-center gap-3">
+                  <div className="flex flex-col items-center gap-3 w-[100px]">
                     <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-foreground/10 flex items-center justify-center group-hover:bg-primary transition-colors">
                       <Icon className="w-8 h-8 md:w-10 md:h-10 text-foreground group-hover:text-primary-foreground transition-colors" />
                     </div>
-                    <span className="text-sm md:text-base font-medium text-card-foreground text-center max-w-[100px]">
+                    <span className="text-sm md:text-base font-medium text-card-foreground text-center">
                       {social.name}
                     </span>
                   </div>

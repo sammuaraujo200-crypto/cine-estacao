@@ -34,17 +34,20 @@ export default function Header({ theme = "default" }: HeaderProps) {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between py-4">
             <div className="hidden md:flex items-center justify-center gap-8 flex-1">
               {navItems.slice(0, 2).map((item) => (
-                <a
+                <motion.a
                   key={item}
                   href="#"
                   data-testid={`link-nav-${item.toLowerCase()}`}
-                  className="text-foreground/90 hover:text-foreground transition-colors text-sm font-medium"
+                  className="text-foreground/90 hover:text-primary transition-all text-sm font-medium relative group"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {item}
-                </a>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                </motion.a>
               ))}
             </div>
 
@@ -59,14 +62,17 @@ export default function Header({ theme = "default" }: HeaderProps) {
 
             <div className="hidden md:flex items-center justify-center gap-8 flex-1">
               {navItems.slice(2).map((item) => (
-                <a
+                <motion.a
                   key={item}
                   href="#"
                   data-testid={`link-nav-${item.toLowerCase()}`}
-                  className="text-foreground/90 hover:text-foreground transition-colors text-sm font-medium"
+                  className="text-foreground/90 hover:text-primary transition-all text-sm font-medium relative group"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {item}
-                </a>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                </motion.a>
               ))}
             </div>
 
@@ -82,22 +88,6 @@ export default function Header({ theme = "default" }: HeaderProps) {
               ) : (
                 <Menu className="h-6 w-6" />
               )}
-            </Button>
-          </div>
-
-          <div className="hidden md:flex justify-center pb-4">
-            <Button
-              asChild
-              className="rounded-full font-bold shadow-lg transition-transform hover:scale-105"
-              style={{
-                backgroundColor: getPrimaryColor(),
-                color: "#ffffff",
-              }}
-              data-testid="button-buy-tickets"
-            >
-              <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
-                Comprar Ingressos
-              </a>
             </Button>
           </div>
         </div>
@@ -118,25 +108,12 @@ export default function Header({ theme = "default" }: HeaderProps) {
                   key={item}
                   href="#"
                   data-testid={`link-mobile-${item.toLowerCase()}`}
-                  className="block text-foreground/90 hover:text-foreground transition-colors font-medium"
+                  className="block text-foreground/90 hover:text-primary active:scale-95 transition-all font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item}
                 </a>
               ))}
-              <Button
-                asChild
-                className="w-full rounded-full font-bold shadow-lg"
-                style={{
-                  backgroundColor: getPrimaryColor(),
-                  color: "#ffffff",
-                }}
-                data-testid="button-mobile-buy-tickets"
-              >
-                <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
-                  Comprar Ingressos
-                </a>
-              </Button>
             </div>
           </motion.div>
         )}
