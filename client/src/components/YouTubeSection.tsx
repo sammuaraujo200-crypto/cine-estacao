@@ -1,54 +1,47 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import NetflixCarousel from "./NetflixCarousel";
+import { getYouTubeThumbnail } from "@/lib/youtube";
 
 const mockVideos = [
   {
     id: "1",
     title: "Trailer Oficial (Completo) - Se Não Fosse Você",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=-Ib1ZpsRvek",
   },
   {
     id: "2",
     title: "Trailer Oficial (Completo) - O Telefone Preto 2",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=AUxwvvVkyqw",
   },
   {
     id: "3",
     title: "Trailer Oficial (Completo) - Zootopia 2",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=rhAmaPsQnWE",
   },
   {
     id: "4",
     title: "Trailer Oficial (Completo) - Animais Perigosos",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=VqJW_VABvRU",
   },
   {
     id: "5",
     title: "Trailer Oficial (Completo) - Invocação do mal 4",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=z_659Kq9mRQ",
   },
   {
     id: "6",
     title: "Trailer Oficial (Completo) - Tron: Ares",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=ynDbqYyiuoY",
   },
   {
     id: "7",
     title: "Trailer Oficial (Completo) - Uma Mulher Sem Filtro",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=GHgGWKeaej4",
   },
   {
     id: "8",
     title: "Trailer Oficial (Completo) - Corra Que a Polícia Vem Aí!",
-    thumbnail: "/api/placeholder/640/360",
     videoUrl: "https://www.youtube.com/watch?v=RHJ4OOtO17c",
   },
 ];
@@ -56,7 +49,7 @@ const mockVideos = [
 export default function YouTubeSection() {
   const carouselItems = mockVideos.map((video) => ({
     id: video.id,
-    image: video.thumbnail,
+    image: getYouTubeThumbnail(video.videoUrl, 'hq'),
     title: video.title,
     link: video.videoUrl,
     overlay: (
