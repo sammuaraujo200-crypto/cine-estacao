@@ -5,12 +5,12 @@ import NetflixCarousel from "./NetflixCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const movieTitles = [
-  { title: "Inception", rating: "14+", trailerUrl: "https://www.youtube.com/watch?v=YoHD9XEInc0" },
-  { title: "Interstellar", rating: "12+", trailerUrl: "https://www.youtube.com/watch?v=zSWdZVtXT7E" },
-  { title: "The Dark Knight", rating: "14+", trailerUrl: "https://www.youtube.com/watch?v=EXeTwQWrcwY" },
-  { title: "Zootopia", rating: "Livre", trailerUrl: "https://www.youtube.com/watch?v=rhAmaPsQnWE" },
-  { title: "Dune", rating: "14+", trailerUrl: "https://www.youtube.com/watch?v=8g18jFHCLXk" },
-  { title: "Avatar", rating: "12+", trailerUrl: "https://www.youtube.com/watch?v=5PSNL1qE6VY" },
+  { title: "Sonic the Hedgehog 3", rating: "Livre", trailerUrl: "https://www.youtube.com/watch?v=qSu6i2iFMO0" },
+  { title: "Mufasa: The Lion King", rating: "Livre", trailerUrl: "https://www.youtube.com/watch?v=o17MF9vnabg" },
+  { title: "Nosferatu", rating: "16+", trailerUrl: "https://www.youtube.com/watch?v=oZP4N55qgT8" },
+  { title: "A Complete Unknown", rating: "12+", trailerUrl: "https://www.youtube.com/watch?v=H-swEdY1Lo4" },
+  { title: "Wicked", rating: "Livre", trailerUrl: "https://www.youtube.com/watch?v=6COmYeLsz4c" },
+  { title: "Moana 2", rating: "Livre", trailerUrl: "https://www.youtube.com/watch?v=hDZ7y8RP5HE" },
 ];
 
 export default function MovieCarousel() {
@@ -20,7 +20,7 @@ export default function MovieCarousel() {
       const response = await fetch("/api/movies/batch", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titles: movieTitles.map(m => m.title) }),
+        body: JSON.stringify({ movies: movieTitles }),
       });
       if (!response.ok) throw new Error("Failed to fetch movies");
       return response.json();
@@ -30,15 +30,15 @@ export default function MovieCarousel() {
   const carouselItems = movies?.map((movie: any, index: number) => ({
     id: movie.imdbID || String(index + 1),
     image: movie.Poster && movie.Poster !== "N/A" ? movie.Poster : "/api/placeholder/500/750",
-    title: movie.Title || movieTitles[index].title,
-    link: movieTitles[index].trailerUrl,
+    title: movie.Title,
+    link: movie.trailerUrl,
     overlay: (
       <>
         <div className="w-16 h-16 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center">
           <Play className="w-8 h-8 text-primary-foreground ml-1" />
         </div>
         <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-white">
-          {movieTitles[index].rating}
+          {movie.rating}
         </div>
       </>
     ),

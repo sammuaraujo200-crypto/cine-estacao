@@ -74,7 +74,7 @@ export default function YouTubeSection() {
           </h2>
           <div className="flex items-center justify-center gap-2 mt-4">
             <img 
-              src="/@assets/cine estação_1761218675649.png" 
+              src="/@assets/cine estação_1761226674905.png" 
               alt="Cine Estação" 
               className="h-8 w-auto"
             />

@@ -25,26 +25,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/movies/batch", async (req, res) => {
     try {
-      const { titles } = req.body;
+      const { movies: movieList } = req.body;
       
-      if (!Array.isArray(titles)) {
-        return res.status(400).json({ error: "titles must be an array" });
+      if (!Array.isArray(movieList)) {
+        return res.status(400).json({ error: "movies must be an array" });
       }
 
-      const moviePromises = titles.map(async (title: string) => {
+      const moviePromises = movieList.map(async (movie: { title: string; rating: string; trailerUrl: string }) => {
         try {
           const response = await fetch(
-            `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${OMDB_API_KEY}`
+            `https://www.omdbapi.com/?t=${encodeURIComponent(movie.title)}&apikey=${OMDB_API_KEY}`
           );
           const data = await response.json();
-          return data.Response === "False" ? null : data;
+          
+          if (data.Response === "False") {
+            return {
+              ...movie,
+              Title: movie.title,
+              Poster: "N/A",
+              imdbID: null,
+            };
+          }
+          
+          return {
+            ...data,
+            rating: movie.rating,
+            trailerUrl: movie.trailerUrl,
+          };
         } catch {
-          return null;
+          return {
+            ...movie,
+            Title: movie.title,
+            Poster: "N/A",
+            imdbID: null,
+          };
         }
       });
 
       const movies = await Promise.all(moviePromises);
-      res.json(movies.filter(movie => movie !== null));
+      res.json(movies);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch movies data" });
     }

@@ -61,7 +61,7 @@ export default function Header({ theme = "default" }: HeaderProps) {
 
             <div className="flex-shrink-0 flex items-center justify-center">
               <img
-                src="/@assets/cine estação_1761218675649.png"
+                src="/@assets/cine estação_1761226674905.png"
                 alt="Cine Estação"
                 className="h-14 w-auto"
                 data-testid="img-logo"

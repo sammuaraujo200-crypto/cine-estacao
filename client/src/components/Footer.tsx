@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center justify-center gap-4">
           <img
-            src="/@assets/cine estação_1761218675649.png"
+            src="/@assets/cine estação_1761226674905.png"
             alt="Cine Estação"
             className="h-12 w-auto"
             data-testid="img-footer-logo"

@@ -231,7 +231,7 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
           className="text-center"
         >
           <img
-            src="/@assets/cine estação_1761218675649.png"
+            src="/@assets/cine estação_1761226674905.png"
             alt="Cine Estação"
             className="h-24 md:h-32 w-auto mx-auto mb-4"
           />
