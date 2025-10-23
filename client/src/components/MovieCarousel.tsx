@@ -3,6 +3,7 @@ import { Play } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import NetflixCarousel from "./NetflixCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 const movieTitles = [
   { title: "Sonic the Hedgehog 3", rating: "Livre", trailerUrl: "https://www.youtube.com/watch?v=qSu6i2iFMO0" },
@@ -71,6 +72,25 @@ export default function MovieCarousel() {
         ) : (
           <NetflixCarousel items={carouselItems} autoplay={true} autoplayDelay={4000} />
         )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex justify-center mt-12"
+        >
+          <Button
+            asChild
+            size="lg"
+            className="rounded-full font-bold shadow-lg px-8"
+            data-testid="button-buy-tickets-carousel"
+          >
+            <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
+              Comprar Ingressos
+            </a>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
