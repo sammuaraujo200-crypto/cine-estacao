@@ -93,7 +93,7 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
           className="text-center"
         >
           <img
-            src="/@assets/cine estação_1761215867903.png"
+            src="/@assets/cine estação_1761217626787.png"
             alt="Cine Estação"
             className="h-24 md:h-32 w-auto mx-auto mb-4"
           />
@@ -116,13 +116,29 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
               Consulte a programação do Cine Estação
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-6">da sua cidade</p>
-            <Button
-              size="lg"
-              className="rounded-full font-bold shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground px-8"
-              data-testid="button-view-schedule"
-            >
-              Ver Programação
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full font-bold shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+                data-testid="button-buy-tickets-hero"
+              >
+                <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
+                  Comprar Ingressos
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full font-bold shadow-lg backdrop-blur-md bg-white/10 border-white/30 text-white hover:bg-white/20 px-8"
+                data-testid="button-collectibles-hero"
+              >
+                <a href="https://biolivre.com.br/lojasmiriam" target="_blank" rel="noopener noreferrer">
+                  Itens Colecionáveis
+                </a>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>
