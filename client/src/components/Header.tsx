@@ -50,7 +50,7 @@ export default function Header({ theme = "default" }: HeaderProps) {
 
             <div className="flex-shrink-0 flex items-center justify-center">
               <img
-                src="/@assets/cine estação_1761215867903.png"
+                src="/@assets/cine estação_1761217626787.png"
                 alt="Cine Estação"
                 className="h-14 w-auto"
                 data-testid="img-logo"
@@ -87,6 +87,7 @@ export default function Header({ theme = "default" }: HeaderProps) {
 
           <div className="hidden md:flex justify-center pb-4">
             <Button
+              asChild
               className="rounded-full font-bold shadow-lg transition-transform hover:scale-105"
               style={{
                 backgroundColor: getPrimaryColor(),
@@ -94,7 +95,9 @@ export default function Header({ theme = "default" }: HeaderProps) {
               }}
               data-testid="button-buy-tickets"
             >
-              Comprar Ingressos
+              <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
+                Comprar Ingressos
+              </a>
             </Button>
           </div>
         </div>
@@ -122,6 +125,7 @@ export default function Header({ theme = "default" }: HeaderProps) {
                 </a>
               ))}
               <Button
+                asChild
                 className="w-full rounded-full font-bold shadow-lg"
                 style={{
                   backgroundColor: getPrimaryColor(),
@@ -129,7 +133,9 @@ export default function Header({ theme = "default" }: HeaderProps) {
                 }}
                 data-testid="button-mobile-buy-tickets"
               >
-                Comprar Ingressos
+                <a href="https://csingresso.com.br/home/cidade/3516408" target="_blank" rel="noopener noreferrer">
+                  Comprar Ingressos
+                </a>
               </Button>
             </div>
           </motion.div>

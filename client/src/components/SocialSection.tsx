@@ -6,17 +6,17 @@ export default function SocialSection() {
     {
       name: "Facebook",
       icon: Facebook,
-      href: "#",
+      href: "https://www.facebook.com/cineestacaooficial",
     },
     {
       name: "YouTube",
       icon: Youtube,
-      href: "#",
+      href: "https://youtube.com/c/CineEstação",
     },
     {
       name: "Instagram",
       icon: Instagram,
-      href: "#",
+      href: "https://www.instagram.com/cine.estacao/",
     },
   ];
 
@@ -40,6 +40,8 @@ export default function SocialSection() {
                 <motion.a
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
