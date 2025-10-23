@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
+import { useAutoDarkMode } from "@/hooks/useAutoDarkMode";
 
 function Router() {
   return (
@@ -16,6 +17,8 @@ function Router() {
 }
 
 function App() {
+  useAutoDarkMode();
+  
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

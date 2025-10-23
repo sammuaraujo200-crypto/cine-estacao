@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface HeaderProps {
-  theme?: "default" | "halloween" | "christmas" | "valentines";
+  theme?: "default" | "halloween" | "christmas" | "valentines" | "easter" | "children" | "independence" | "cinema";
 }
 
 export default function Header({ theme = "default" }: HeaderProps) {
@@ -20,6 +20,14 @@ export default function Header({ theme = "default" }: HeaderProps) {
         return "#e60023";
       case "valentines":
         return "#ff3366";
+      case "easter":
+        return "#9b59b6";
+      case "children":
+        return "#3498db";
+      case "independence":
+        return "#27ae60";
+      case "cinema":
+        return "#f39c12";
       default:
         return "#ff6600";
     }
