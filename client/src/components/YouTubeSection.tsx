@@ -1,54 +1,71 @@
-import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
+import NetflixCarousel from "./NetflixCarousel";
 
-interface VideoCard {
-  id: string;
-  title: string;
-  thumbnail: string;
-  description: string;
-}
-
-const mockVideos: VideoCard[] = [
+const mockVideos = [
   {
     id: "1",
     title: "Trailer Oficial (Completo) - Se Não Fosse Você",
-    thumbnail: "/api/placeholder/400/225",
-    description: "Assista ao trailer completo de #SeNãoFosseVocê Somos o melhor...",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=-Ib1ZpsRvek",
   },
   {
     id: "2",
     title: "Trailer Oficial (Completo) - O Telefone Preto 2",
-    thumbnail: "/api/placeholder/400/225",
-    description: "Assista ao trailer completo de #OTelefonePreto2 Somos o melhor canal...",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=AUxwvvVkyqw",
   },
   {
     id: "3",
     title: "Trailer Oficial (Completo) - Zootopia 2",
-    thumbnail: "/api/placeholder/400/225",
-    description: "Assista ao trailer completo de #zootopia2 Somos o melhor canal...",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=rhAmaPsQnWE",
   },
   {
     id: "4",
     title: "Trailer Oficial (Completo) - Animais Perigosos",
-    thumbnail: "/api/placeholder/400/225",
-    description: "Assista ao trailer completo de #animaisperigosos",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=VqJW_VABvRU",
   },
   {
     id: "5",
     title: "Trailer Oficial (Completo) - Invocação do mal 4",
-    thumbnail: "/api/placeholder/400/225",
-    description: "Assista ao trailer completo de #invocaçãodomal",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=z_659Kq9mRQ",
   },
   {
     id: "6",
     title: "Trailer Oficial (Completo) - Tron: Ares",
-    thumbnail: "/api/placeholder/400/225",
-    description: "Assista ao trailer completo de Tron: Ares",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=ynDbqYyiuoY",
+  },
+  {
+    id: "7",
+    title: "Trailer Oficial (Completo) - Uma Mulher Sem Filtro",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=GHgGWKeaej4",
+  },
+  {
+    id: "8",
+    title: "Trailer Oficial (Completo) - Corra Que a Polícia Vem Aí!",
+    thumbnail: "/api/placeholder/640/360",
+    videoUrl: "https://www.youtube.com/watch?v=RHJ4OOtO17c",
   },
 ];
 
 export default function YouTubeSection() {
+  const carouselItems = mockVideos.map((video) => ({
+    id: video.id,
+    image: video.thumbnail,
+    title: video.title,
+    link: video.videoUrl,
+    overlay: (
+      <div className="w-16 h-16 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center">
+        <Play className="w-8 h-8 text-primary-foreground ml-1" />
+      </div>
+    ),
+  }));
+
   return (
     <section className="py-16 md:py-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -62,50 +79,17 @@ export default function YouTubeSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
             Inscreva-se no nosso canal do YouTube:
           </h2>
-          <p className="text-muted-foreground">Cine Estação</p>
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <img 
+              src="/@assets/image_1761216345000.png" 
+              alt="Cine Estação" 
+              className="h-8 w-auto"
+            />
+            <p className="text-muted-foreground font-medium">Cine Estação</p>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockVideos.map((video, index) => (
-            <motion.div
-              key={video.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <Card
-                className="overflow-hidden hover-elevate active-elevate-2 cursor-pointer group"
-                data-testid={`card-video-${video.id}`}
-              >
-                <div className="relative aspect-video">
-                  <img
-                    src={video.thumbnail}
-                    alt={video.title}
-                    className="w-full h-full object-cover"
-                    data-testid={`img-video-thumbnail-${video.id}`}
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-8 h-8 text-primary-foreground ml-1" />
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3
-                    className="font-semibold text-card-foreground mb-2 line-clamp-2"
-                    data-testid={`text-video-title-${video.id}`}
-                  >
-                    {video.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {video.description}
-                  </p>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        <NetflixCarousel items={carouselItems} autoplay={true} autoplayDelay={5000} />
       </div>
     </section>
   );
