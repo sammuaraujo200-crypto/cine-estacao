@@ -1,9 +1,23 @@
-[build]
-  command = "npm run build"
-  publish = "dist/public"  # Alterei de 'dist' para 'dist/public'
-
-[[redirects]]
-  from = "/:splat"
-  to = "/index.html"
-  status = 200
-  force = true
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/vite.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/dist/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/vite.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/dist/$1"
+    }
+  ]
+}
