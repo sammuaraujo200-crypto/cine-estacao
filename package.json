@@ -5,9 +5,10 @@
   "license": "MIT",
 "scripts": {
   "dev": "cross-env NODE_ENV=development tsx server/index.ts",
-  "build": "npm run --prefix client build && tsc -p .",
+  "build": "npm run --prefix client build && tsc -p server/tsconfig.json",
   "start": "node dist/server/index.js"
 },
+
 
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
