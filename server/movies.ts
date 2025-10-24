@@ -25,12 +25,10 @@ router.get("/api/movies/batch", async (_req, res) => {
     const scrollDelay = 500;
     for (let pos = 0; pos < 2000; pos += scrollStep) {
       await page.evaluate((y) => window.scrollTo(0, y), pos);
-    await new Promise(resolve => setTimeout(resolve, scrollDelay));
-
+      await new Promise((resolve) => setTimeout(resolve, scrollDelay));
     }
 
-   await new Promise(resolve => setTimeout(resolve, 1000));
-
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Extrai os dados dos filmes
     const movies = await page.evaluate(() => {
@@ -64,19 +62,18 @@ router.get("/api/movies/batch", async (_req, res) => {
       return results;
     });
 
-    await browser.close();
-
     if (!movies.length) {
       return res.status(404).json({
         error: "Nenhum filme encontrado — o site pode ter mudado o layout.",
       });
     }
 
-    res.json(movies);
+    return res.json(movies);
   } catch (err) {
     console.error("❌ Erro ao capturar filmes:", err);
-    res.status(500).json({ error: "Falha ao obter filmes automaticamente." });
+    return res.status(500).json({ error: "Falha ao obter filmes automaticamente." });
   } finally {
+    // Fecha o browser sempre que possível
     await browser.close().catch(() => {});
   }
 });

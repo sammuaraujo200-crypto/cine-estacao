@@ -8,12 +8,15 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
+    "skipLibCheck": true,
+    "noEmit": false,
 
-    // 🔽 Adiciona estas duas linhas:
-    "baseUrl": "..",
+    "baseUrl": ".",
     "paths": {
+      "@/*": ["client/src/*"],
       "@shared/*": ["shared/*"]
     }
   },
-  "include": ["server/**/*.ts", "shared/**/*.ts"]
+  "include": ["server/**/*.ts", "shared/**/*.ts", "client/src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

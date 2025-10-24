@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development tsx server/index.ts",
-    "build": "vite build && tsc -p server/tsconfig.json",
-    "start": "cross-env NODE_ENV=production node dist/index.js",
-    "vercel-build": "vite build && tsc -p server/tsconfig.json"
-  },
+"scripts": {
+  "dev": "cross-env NODE_ENV=development tsx server/index.ts",
+  "build": "npm run --prefix client build && tsc -p server",
+  "start": "node dist/server/index.js",
+  "vercel-build": "npm run build"
+},
+
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",

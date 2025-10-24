@@ -1,25 +1,40 @@
+// server/vite.ts
 import express, { type Express } from "express";
 import fs from "fs";
-import path from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { nanoid } from "nanoid";
 
+import path from "path";
+import { fileURLToPath } from "url";
 
+// Converte import.meta.url em __dirname (compatível ESM)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// raiz do client
+const clientRoot = path.resolve(__dirname, "../client");
 
+// Vite config usada pelo servidor (middleware)
 const viteConfig = defineConfig({
-  root: path.resolve(__dirname, "../client"),
+  root: clientRoot,
   plugins: [react()],
+  resolve: {
+    alias: {
+      // ajusta o alias @ para a pasta client/src
+      "@": path.resolve(__dirname, "../client/src"),
+      "@shared": path.resolve(__dirname, "../shared"),
+    },
+  },
   build: {
     outDir: path.resolve(__dirname, "../dist/client"),
-    emptyOutDir: true
+    emptyOutDir: true,
   },
   server: {
-    port: 5173
-  }
+    port: 5173,
+  },
 });
 
 export default viteConfig;
@@ -33,8 +48,6 @@ export function log(message: string, source = "express") {
     second: "2-digit",
     hour12: true,
   });
-
-  
 
   console.log(`${formattedTime} [${source}] ${message}`);
 }
@@ -65,12 +78,8 @@ export async function setupVite(app: Express, server: Server) {
     const url = req.originalUrl;
 
     try {
-      const clientTemplate = path.resolve(
-        import.meta.dirname,
-        "..",
-        "client",
-        "index.html",
-      );
+      // usa __dirname (não import.meta.dirname)
+      const clientTemplate = path.resolve(__dirname, "..", "client", "index.html");
 
       // always reload the index.html file from disk incase it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
@@ -88,8 +97,7 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
- const distPath = path.resolve(import.meta.dirname, "..", "dist", "client");
-
+  const distPath = path.resolve(__dirname, "..", "dist", "client");
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
