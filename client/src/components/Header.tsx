@@ -58,18 +58,14 @@ export default function Header({ theme = "default" }: HeaderProps) {
       </motion.div>
     ))}
   </div>
-
 {/* LOGO CENTRAL */}
-<div className="flex justify-center items-center mx-10">
+<div className="flex justify-center items-center w-full">
   <img
     src="/images/cine-estação_1761215287537.png"
     alt="Cine Estação"
     className="h-14 w-auto"
   />
 </div>
-
-
-
   {/* Botões da direita */}
   <div className="hidden md:flex items-center justify-start gap-10 flex-1">
     {navItems.slice(Math.ceil(navItems.length / 2)).map((item) => (
