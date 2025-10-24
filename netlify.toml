@@ -1,11 +1,11 @@
 [build]
-  # Comando para rodar o build do frontend (se estiver usando Vite, é esse comando que o Netlify vai rodar)
   command = "npm run build"
-  # Pasta de saída que o Vite vai gerar
-  publish = "dist" 
+  publish = "dist"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true
+from = "/:splat"
+to = "/index.html"
+status = 200
+force = true
+
+
