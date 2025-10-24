@@ -5,9 +5,8 @@
   "license": "MIT",
 "scripts": {
   "dev": "cross-env NODE_ENV=development tsx server/index.ts",
-  "build": "npm run --prefix client build && tsc -p server",
-  "start": "node dist/server/index.js",
-  "vercel-build": "npm run build"
+  "build": "npm run --prefix client build && tsc -p .",
+  "start": "node dist/server/index.js"
 },
 
   "dependencies": {
