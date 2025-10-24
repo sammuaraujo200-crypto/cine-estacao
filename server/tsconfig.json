@@ -8,12 +8,10 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-
-    // 🔽 Adiciona estas duas linhas:
     "baseUrl": "..",
     "paths": {
       "@shared/*": ["shared/*"]
     }
   },
-  "include": ["server/**/*.ts", "shared/**/*.ts"]
+  "include": ["../shared/**/*.ts", "./**/*.ts"]
 }
