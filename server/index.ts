@@ -3,10 +3,9 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import http from "http";
-import moviesRouter from "./movies"; // importa a rota
+import moviesRouter from "./movies";
 import cron from "node-cron";
 import axios from "axios";
-
 
 const app = express();
 
@@ -24,9 +23,9 @@ app.use(
     },
   })
 );
+
 app.use(express.urlencoded({ extended: false }));
 app.use(moviesRouter);
-
 
 // Middleware de log
 app.use((req, res, next) => {
@@ -59,45 +58,46 @@ app.use((req, res, next) => {
   next();
 });
 
-// Função assíncrona principal
-(async () => {
-  // Registra as rotas da API
-  registerRoutes(app);
+// 🔹 Registra as rotas da API
+registerRoutes(app);
 
-  // Cria o servidor HTTP com o app do Express
+// 🔹 Middleware global de erro
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  const status = err.status || err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).json({ message });
+  log(`❌ Error: ${message}`);
+});
+
+// 🔹 Produção x Desenvolvimento
+if (process.env.NODE_ENV === "development") {
+  // Quando em desenvolvimento local, inicializa o Vite e o servidor
   const server = http.createServer(app);
 
-  // Middleware de erro global
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
-    throw err;
-  });
-
-  // Setup do Vite (modo dev) ou arquivos estáticos (modo produção)
-  if (app.get("env") === "development") {
+  (async () => {
     await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
+    const port = parseInt(process.env.PORT || "5000", 10);
+    const host = process.env.HOST || "localhost";
+    server.listen(port, host, () => {
+      log(`✅ Server running at http://${host}:${port}`);
+    });
 
-  // Configuração do servidor
-  const port = parseInt(process.env.PORT || "5000", 10);
-  const host = process.env.HOST || "localhost";
+    // 🕒 CRON JOB: Atualiza os filmes toda quinta-feira às 5h da manhã
+    cron.schedule("0 5 * * 4", async () => {
+      log("🕓 Atualizando filmes automaticamente...");
+      try {
+        await axios.get(`http://${host}:${port}/api/movies/batch`);
+        log("✅ Atualização de filmes concluída!");
+      } catch (err) {
+        log("❌ Erro ao atualizar filmes automaticamente:");
+        console.error(err);
+      }
+    });
+  })();
+} else {
+  // 🚀 Produção (Vercel)
+  serveStatic(app);
+}
 
-  server.listen(port, host, () => {
-    log(`✅ Server running at http://${host}:${port}`);
-  });
-  // 🕒 CRON JOB: Atualiza os filmes toda quinta-feira às 5h da manhã
-  cron.schedule("0 5 * * 4", async () => {
-    log("🕓 Atualizando filmes automaticamente...");
-    try {
-      await axios.get(`http://${host}:${port}/api/movies/batch`);
-      log("✅ Atualização de filmes concluída!");
-    } catch (err) {
-      log("❌ Erro ao atualizar filmes automaticamente:");
-      console.error(err);
-    }
-  });
-})();
+// 🔹 Exporta o app (para que a Vercel use como função serverless)
+export default app;
