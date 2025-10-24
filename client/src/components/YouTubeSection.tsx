@@ -1,55 +1,85 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import NetflixCarousel from "./NetflixCarousel";
 import { getYouTubeThumbnail } from "@/lib/youtube";
 
-const mockVideos = [
-  {
-    id: "1",
-    title: "Trailer Oficial (Completo) - Se Não Fosse Você",
-    videoUrl: "https://www.youtube.com/watch?v=-Ib1ZpsRvek",
-  },
-  {
-    id: "2",
-    title: "Trailer Oficial (Completo) - O Telefone Preto 2",
-    videoUrl: "https://www.youtube.com/watch?v=AUxwvvVkyqw",
-  },
-  {
-    id: "3",
-    title: "Trailer Oficial (Completo) - Zootopia 2",
-    videoUrl: "https://www.youtube.com/watch?v=rhAmaPsQnWE",
-  },
-  {
-    id: "4",
-    title: "Trailer Oficial (Completo) - Animais Perigosos",
-    videoUrl: "https://www.youtube.com/watch?v=VqJW_VABvRU",
-  },
-  {
-    id: "5",
-    title: "Trailer Oficial (Completo) - Invocação do mal 4",
-    videoUrl: "https://www.youtube.com/watch?v=z_659Kq9mRQ",
-  },
-  {
-    id: "6",
-    title: "Trailer Oficial (Completo) - Tron: Ares",
-    videoUrl: "https://www.youtube.com/watch?v=ynDbqYyiuoY",
-  },
-  {
-    id: "7",
-    title: "Trailer Oficial (Completo) - Uma Mulher Sem Filtro",
-    videoUrl: "https://www.youtube.com/watch?v=GHgGWKeaej4",
-  },
-  {
-    id: "8",
-    title: "Trailer Oficial (Completo) - Corra Que a Polícia Vem Aí!",
-    videoUrl: "https://www.youtube.com/watch?v=RHJ4OOtO17c",
-  },
-];
-
 export default function YouTubeSection() {
-  const carouselItems = mockVideos.map((video) => ({
+  const [videos, setVideos] = useState<any[]>([]);
+
+  useEffect(() => {
+    const channelId = "UCPbg9yFDmA6uy_7iBQXXnTg"; // ID do canal Cine Estação
+    const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+
+    fetch(feedUrl)
+      .then((res) => res.text())
+      .then((str) => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(str, "text/xml");
+        const entries = Array.from(xml.getElementsByTagName("entry"));
+
+        // Filtra vídeos até 2 meses atrás
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+        const data = entries
+          .map((entry) => {
+            const id = entry.getElementsByTagName("yt:videoId")[0]?.textContent;
+            const title = entry.getElementsByTagName("title")[0]?.textContent;
+            const link = entry.getElementsByTagName("link")[0]?.getAttribute("href");
+            const published = new Date(
+              entry.getElementsByTagName("published")[0]?.textContent || ""
+            );
+
+            return { id, title, videoUrl: link, published };
+          })
+          .filter((v) => v.published >= twoMonthsAgo) // só vídeos dos últimos 2 meses
+          .slice(0, 8); // limita a 8 vídeos
+
+        setVideos(data);
+      })
+      .catch((err) => {
+        console.error("Erro ao carregar vídeos:", err);
+
+        // 🔸 Fallback se o feed falhar (CORS ou erro de rede)
+        setVideos([
+          {
+            id: "1",
+            title: "Trailer Oficial (Completo) - Se Não Fosse Você",
+            videoUrl: "https://www.youtube.com/watch?v=-Ib1ZpsRvek",
+          },
+          {
+            id: "2",
+            title: "Trailer Oficial (Completo) - O Telefone Preto 2",
+            videoUrl: "https://www.youtube.com/watch?v=AUxwvvVkyqw",
+          },
+          {
+            id: "3",
+            title: "Trailer Oficial (Completo) - Zootopia 2",
+            videoUrl: "https://www.youtube.com/watch?v=rhAmaPsQnWE",
+          },
+          {
+            id: "4",
+            title: "Trailer Oficial (Completo) - Animais Perigosos",
+            videoUrl: "https://www.youtube.com/watch?v=VqJW_VABvRU",
+          },
+          {
+            id: "5",
+            title: "Trailer Oficial (Completo) - Invocação do mal 4",
+            videoUrl: "https://www.youtube.com/watch?v=z_659Kq9mRQ",
+          },
+          {
+            id: "6",
+            title: "Trailer Oficial (Completo) - Tron: Ares",
+            videoUrl: "https://www.youtube.com/watch?v=ynDbqYyiuoY",
+          },
+        ]);
+      });
+  }, []);
+
+  const carouselItems = videos.map((video) => ({
     id: video.id,
-    image: getYouTubeThumbnail(video.videoUrl, 'hq'),
+    image: getYouTubeThumbnail(video.videoUrl, "hq"),
     title: video.title,
     link: video.videoUrl,
     overlay: (
@@ -69,20 +99,34 @@ export default function YouTubeSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Inscreva-se no nosso canal do YouTube:
           </h2>
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <img 
-              src="/@assets/cine estação_1761226674905.png" 
-              alt="Cine Estação" 
-              className="h-8 w-auto"
-            />
-            <p className="text-muted-foreground font-medium">Cine Estação</p>
+
+          {/* 🔹 Banner clicável */}
+          <div className="flex justify-center mt-4">
+            <a
+              href="https://www.youtube.com/c/CineEsta%C3%A7%C3%A3o/videos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block hover:scale-105 transition-transform duration-300"
+            >
+              <img
+                src="/images/youtube.png"
+                alt="Cine Estação - Inscreva-se no canal"
+                className="h-16 md:h-24 w-auto rounded-xl shadow-lg"
+              />
+            </a>
           </div>
         </motion.div>
 
-        <NetflixCarousel items={carouselItems} autoplay={true} autoplayDelay={5000} />
+        {/* 🎥 Carrossel de vídeos */}
+        <NetflixCarousel
+          items={carouselItems}
+          autoplay={true}
+          autoplayDelay={5000}
+          aspectRatio="16/9"
+        />
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ export default function SocialSection() {
     {
       name: "WhatsApp",
       icon: SiWhatsapp,
-      href: "#",
+      href: "https://wa.me/5511911623061",
       isReactIcon: true,
     },
   ];

@@ -7,14 +7,23 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 import { useAutoDarkMode } from "@/hooks/useAutoDarkMode";
 
+import EmConstrucao from "@/pages/EmConstrucao";
+
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/sobre" component={EmConstrucao} />
+      <Route path="/promocoes" component={EmConstrucao} />
+      <Route path="/fidelidade" component={EmConstrucao} />
+      <Route path="/duvidas" component={EmConstrucao} />
+      <Route path="/mais" component={EmConstrucao} />
       <Route component={NotFound} />
     </Switch>
   );
 }
+
+
 
 function App() {
   useAutoDarkMode();

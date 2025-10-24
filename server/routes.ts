@@ -1,32 +1,12 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { Express } from "express";
 
-export async function registerRoutes(app: Express): Promise<Server> {
-  const OMDB_API_KEY = process.env.OMDB_API_KEY;
+const OMDB_API_KEY = process.env.OMDB_API_KEY || "demo"; // substitua pela sua chave real
 
-  app.get("/api/movie/:title", async (req, res) => {
-    try {
-      const { title } = req.params;
-      const response = await fetch(
-        `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${OMDB_API_KEY}`
-      );
-      const data = await response.json();
-      
-      if (data.Response === "False") {
-        return res.status(404).json({ error: data.Error });
-      }
-      
-      res.json(data);
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch movie data" });
-    }
-  });
-
+export function registerRoutes(app: Express) {
   app.post("/api/movies/batch", async (req, res) => {
     try {
       const { movies: movieList } = req.body;
-      
+
       if (!Array.isArray(movieList)) {
         return res.status(400).json({ error: "movies must be an array" });
       }
@@ -37,26 +17,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
             `https://www.omdbapi.com/?t=${encodeURIComponent(movie.title)}&apikey=${OMDB_API_KEY}`
           );
           const data = await response.json();
-          
-          if (data.Response === "False") {
+
+          if (data.Response === "False" || !data.Poster || data.Poster === "N/A") {
             return {
               ...movie,
               Title: movie.title,
-              Poster: "N/A",
+              Poster: null,
               imdbID: null,
             };
           }
-          
+
           return {
-            ...data,
-            rating: movie.rating,
-            trailerUrl: movie.trailerUrl,
+            ...movie,
+            Title: data.Title,
+            Poster: data.Poster,
+            imdbID: data.imdbID,
           };
-        } catch {
+        } catch (err) {
+          console.error(`Erro ao buscar ${movie.title}:`, err);
           return {
             ...movie,
             Title: movie.title,
-            Poster: "N/A",
+            Poster: null,
             imdbID: null,
           };
         }
@@ -65,11 +47,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const movies = await Promise.all(moviePromises);
       res.json(movies);
     } catch (error) {
+      console.error("Erro geral no batch:", error);
       res.status(500).json({ error: "Failed to fetch movies data" });
     }
   });
-
-  const httpServer = createServer(app);
-
-  return httpServer;
 }

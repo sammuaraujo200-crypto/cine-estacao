@@ -212,12 +212,12 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
   return (
     <section className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden">
       <div className="absolute inset-0">
-        <img
-          src="/@assets/screenshot-1761215348215.png"
+        {/*<img
+          src="/@assets/image_1761237238363.png"
           alt="Cinema Hero"
           className="w-full h-full object-cover"
           data-testid="img-hero-background"
-        />
+        />*/}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
       </div>
 
@@ -231,7 +231,7 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
           className="text-center"
         >
           <img
-            src="/@assets/cine estação_1761226674905.png"
+               src="/images/cine-estação_1761215287537.png"
             alt="Cine Estação"
             className="h-24 md:h-32 w-auto mx-auto mb-4"
           />
@@ -241,20 +241,24 @@ export default function HeroSection({ theme = "default" }: HeroSectionProps) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center max-w-3xl"
-        >
-          <div
-            className="backdrop-blur-md bg-black/40 rounded-xl p-6 md:p-8 border border-white/10"
-            data-testid="text-hero-overlay"
-          >
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white">
-              Consulte a programação do Cine Estação
-            </h1>
-          </div>
-        </motion.div>
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="text-center max-w-3xl"
+>
+  <div
+    className="backdrop-blur-md bg-black/40 rounded-xl p-6 md:p-8 border border-white/10"
+    data-testid="text-hero-overlay"
+  >
+    <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white">
+      A magia do cinema está de volta ✨
+    </h1>
+    <p className="text-white/80 text-lg mt-3">
+      Viva grandes histórias aqui no Cine Estação!
+    </p>
+  </div>
+</motion.div>
+
       </div>
     </section>
   );
