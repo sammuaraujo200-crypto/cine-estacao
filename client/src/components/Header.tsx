@@ -60,13 +60,14 @@ export default function Header({ theme = "default" }: HeaderProps) {
   </div>
 
   {/* LOGO CENTRAL */}
-  <div className="flex-shrink-0 flex items-center justify-center mx-10">
-    <img
-      src="/images/cine-estação_1761215287537.png"
-      alt="Cine Estação"
-      className="h-14 w-auto"
-    />
-  </div>
+<div className="flex justify-center items-center w-full">
+  <img
+    src="/images/cine-estação_1761215287537.png"
+    alt="Cine Estação"
+    className="h-14 w-auto mx-auto"
+  />
+</div>
+
 
   {/* Botões da direita */}
   <div className="hidden md:flex items-center justify-start gap-10 flex-1">
