@@ -25,10 +25,12 @@ router.get("/api/movies/batch", async (_req, res) => {
     const scrollDelay = 500;
     for (let pos = 0; pos < 2000; pos += scrollStep) {
       await page.evaluate((y) => window.scrollTo(0, y), pos);
-      await page.waitForTimeout(scrollDelay);
+    await new Promise(resolve => setTimeout(resolve, scrollDelay));
+
     }
 
-    await page.waitForTimeout(1000);
+   await new Promise(resolve => setTimeout(resolve, 1000));
+
 
     // Extrai os dados dos filmes
     const movies = await page.evaluate(() => {
