@@ -1,11 +1,12 @@
 import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
 import http from "http";
-import moviesRouter from "./movies";
 import cron from "node-cron";
 import axios from "axios";
+import { registerRoutes } from "./routes.js";
+import { setupVite, serveStatic, log } from "./vite.js";
+import moviesRouter from "./movies.js";
+
 
 const app = express();
 
