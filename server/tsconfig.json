@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "node16",
-    "outDir": "dist",
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "esModuleInterop": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist"
   },
   "include": ["index.ts", "routes.ts", "movies.ts", "vite.ts"]
 }
